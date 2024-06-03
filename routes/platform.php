@@ -19,6 +19,7 @@ use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
+use App\Orchid\Screens\EmailSenderScreen;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,26 @@ use Tabuna\Breadcrumbs\Trail;
 | contains the need "dashboard" middleware group. Now create something great!
 |
 */
+use App\Orchid\Screens\OrderEditScreen;
+use App\Orchid\Screens\OrderListScreen;
+
+Route::screen('order/{order?}', OrderEditScreen::class)
+    ->name('platform.order.edit');
+
+Route::screen('orders', OrderListScreen::class)
+    ->name('platform.orders.list');
+
+Route::screen('email', EmailSenderScreen::class)
+    ->name('platform.email')
+    ->breadcrumbs(function (Trail $trail){
+        return $trail
+                ->parent('platform.index')
+                ->push('Email sender');
+    });
+
+
+Route::screen('email', EmailSenderScreen::class)->name('platform.email');
+
 
 // Main
 Route::screen('/main', PlatformScreen::class)
